@@ -69,5 +69,78 @@ namespace Assignment4
             }
             return vacantPos;
         }
+
+        public bool AddNewGuest(string firstName, string lastName)
+        {
+            bool ok = false;
+            int vacantPos = FindVacantPos();
+            if (vacantPos != -1)
+            {
+                guestList[vacantPos] = FullName(firstName, lastName);
+                ok = true;
+            }
+            return ok;
+        }
+
+        private string FullName(string firstName, string lastName)
+        {
+            return lastName.ToUpper() + "," + firstName; 
+        }
+
+        public bool DeleteAt(int index)
+        {
+            bool ok = false;
+            if (CheckIndex(index))
+            {
+                guestList[index] = string.Empty;
+                MoveElementsToLeft(index);
+                ok = true;
+            }
+            return ok;
+        }
+
+        private void MoveElementsToLeft(int index)
+        {
+            for (int i = index +1; i < guestList.Length; i++)
+            {
+                guestList[i - 1] = guestList[i];
+                guestList[i] = string.Empty;
+            }
+        }
+
+        private bool CheckIndex(int index)
+        {
+            bool ok = false;
+            return ok;
+        }
+
+        public string[] GetGuestList()
+        {
+            int size = NumOfGuest();
+            if (size <= 0)
+            {
+                return null;
+            }
+            string[] guests = new string[size];
+            for (int i = 0, j = 0; i < guestList.Length; i++)
+            {
+                if (!string.IsNullOrEmpty(guestList[i]))
+                {
+                    guestList[j++] = guestList[i];
+                }
+            }
+            return guests;
+        }
+
+        private int NumOfGuests()
+        {
+
+        }
+
+        public double CalcTotalCost()
+        {
+            double total = 0;
+            return total;
+        }
     }
 }
