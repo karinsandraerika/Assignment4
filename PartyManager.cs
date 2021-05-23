@@ -12,9 +12,10 @@ namespace Assignment4
         private double feePerPerson;
         private string[] guestList;
 
-        // Constructor with one parameter: the size of the guest list.
+        // Constructor with one parameter: max number of guests given by the user.
         public PartyManager(int maxNumOfGuests)
         {
+            // Create the guest list array with the size of the max nr.
             guestList = new string[maxNumOfGuests];
         }
 
@@ -22,10 +23,15 @@ namespace Assignment4
         public double CostPerPerson
         {
             get
-            { return costPerPerson;}
+            { 
+                return costPerPerson;
+            }
             set
-            { if (value >= 0.0)
+            { 
+                if (value >= 0.0)
+                {
                     costPerPerson = value;
+                }    
             }
         }
 
@@ -33,15 +39,20 @@ namespace Assignment4
         public double FeePerPerson
         {
             get
-            { return feePerPerson; }
+            { 
+                return feePerPerson; 
+            }
             set
-            { if (value >= 0.0)
+            { 
+                if (value >= 0.0)
+                {
                     feePerPerson = value;
+                }     
             }
         }
 
         // Method to count the number of guests
-        private int NrOfGuests()
+        public int NrOfGuests()
         {
             int nrGuests = 0;
             // loop over guest list and count the number of nonempty elements.
@@ -53,6 +64,19 @@ namespace Assignment4
                 }
             }
             return nrGuests;
+        }
+
+        // Add new guest
+        public bool AddNewGuest(string firstName, string lastName)
+        {
+            bool ok = false;
+            int vacantPos = FindVacantPos();
+            if (vacantPos != -1)
+            {
+                guestList[vacantPos] = FullName(firstName, lastName);
+                ok = true;
+            }
+            return ok;
         }
 
         // Method to find a vacant position in the array
@@ -68,18 +92,6 @@ namespace Assignment4
                 }
             }
             return vacantPos;
-        }
-
-        public bool AddNewGuest(string firstName, string lastName)
-        {
-            bool ok = false;
-            int vacantPos = FindVacantPos();
-            if (vacantPos != -1)
-            {
-                guestList[vacantPos] = FullName(firstName, lastName);
-                ok = true;
-            }
-            return ok;
         }
 
         private string FullName(string firstName, string lastName)

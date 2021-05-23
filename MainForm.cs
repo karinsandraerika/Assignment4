@@ -19,6 +19,7 @@ namespace Assignment4
             InitializeGUI();
         }
 
+        // Initialize the GUI
         private void InitializeGUI()
         {
             // Make sure that input and output controls are empty.
@@ -26,8 +27,8 @@ namespace Assignment4
             ClearOutputControls();
 
             //Enable the group box New party and disable the group box Add guests.
-            grpNewParty.Enabled = true;
-            grpAddGuests.Enabled = false;
+            //grpNewParty.Enabled = true;
+            //grpAddGuests.Enabled = false;
         }
 
         // Clear input controls of any text.
@@ -40,13 +41,13 @@ namespace Assignment4
             txtMaxNrGuests.Text = string.Empty;
         }
 
-        // Clear aoutput controls.
+        // Clear output controls.
         private void ClearOutputControls()
         {
-            lblNrGuests.Text = string.Empty;
-            lblSurplusDeficit.Text = string.Empty;
-            lblTotalCost.Text = string.Empty;
-            lblTotalFees.Text = string.Empty;
+            lblNrGuestsOut.Text = string.Empty;
+            lblSurplusDeficitOut.Text = string.Empty;
+            lblTotalCostOut.Text = string.Empty;
+            lblTotalFeesOut.Text = string.Empty;
             lstAllGuests.Items.Clear();
         }
 
@@ -70,28 +71,30 @@ namespace Assignment4
             }
 
             double totalCost = partyManager.CalcTotalCost();
-            lblTotalCost.Text = totalCost.ToString("0.00");
-            lblNrGuests.Text = null;
-            lblSurplusDeficit.Text = null;
-            lblTotalFees.Text = null;
+            lblTotalCostOut.Text = totalCost.ToString("0.00");
+            int nrGuest = partyManager.NrOfGuests();
+            lblNrGuestsOut.Text = nrGuest.ToString();
+            lblSurplusDeficitOut.Text = null;
+            lblTotalFeesOut.Text = null;
                 
         }
 
-        // When Create button is clicked: 
+        // When Create button is clicked: create a new party, update GUI and enable Add guest feature.
         private void btnCreate_Click(object sender, EventArgs e)
         {
+            // Call method to create party.
             bool maxNumOK = CreateParty();
-            if (!maxNumOK)
+            // If the party was created succesfully, continut to read input for cost and fee per person.
+            if (maxNumOK)
             {
-                return;
-            }
-
-            bool amountOK = ReadCostPerPerson() && ReadFeePerPerson();
-            if (maxNumOK && amountOK)
-            {
-                grpAddGuests.Enabled = true;
-                UpdateGUI();
-            }
+                bool amountOK = ReadCostPerPerson() && ReadFeePerPerson();
+                if (amountOK)
+                {
+                    // Enable Add guest box and update GUI if cost and fee were read succesfully.
+                    grpAddGuests.Enabled = true;
+                    UpdateGUI();
+                }
+            }  
         }
 
         // Create a new party
@@ -99,7 +102,7 @@ namespace Assignment4
         {
             int maxNumber = 0;
             bool ok = true;
-            // If the max ntr of guest given by the user is over 0, create the partyManager object.
+            // If the max nr of guest given by the user is valid and over 0, create the partyManager object.
             if (int.TryParse(txtMaxNrGuests.Text, out maxNumber) && (maxNumber > 0))
             {
                 partyManager = new PartyManager(maxNumber); // the max nr of guests is passed as a parameter.
@@ -114,14 +117,31 @@ namespace Assignment4
 
         private bool ReadCostPerPerson()
         {
+            double costPerPerson = 0;
             bool ok = false;
+            if (double.TryParse(txtCostPerPerson.Text, out costPerPerson))
+            {
+                partyManager.CostPerPerson = costPerPerson;
+                ok = true;
+            }
             return ok;
         }
 
         private bool ReadFeePerPerson()
         {
+            double feePerPerson = 0;
             bool ok = false;
+            if (double.TryParse(txtFeePerPerson.Text, out feePerPerson))
+            {
+                partyManager.FeePerPerson = feePerPerson;
+                ok = true;
+            }
             return ok;
+        }
+
+        private void btnAdd_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
