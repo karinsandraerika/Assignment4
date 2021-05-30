@@ -75,8 +75,7 @@ namespace Assignment4
             int nrGuest = partyManager.NrOfGuests();
             lblNrGuestsOut.Text = nrGuest.ToString();
             lblSurplusDeficitOut.Text = null;
-            lblTotalFeesOut.Text = null;
-                
+            lblTotalFeesOut.Text = null;    
         }
 
         // When Create button is clicked: create a new party, update GUI and enable Add guest feature.
@@ -84,7 +83,7 @@ namespace Assignment4
         {
             // Call method to create party.
             bool maxNumOK = CreateParty();
-            // If the party was created succesfully, continut to read input for cost and fee per person.
+            // If the party was created succesfully, continue to read input for cost and fee per person.
             if (maxNumOK)
             {
                 bool amountOK = ReadCostPerPerson() && ReadFeePerPerson();
@@ -124,6 +123,10 @@ namespace Assignment4
                 partyManager.CostPerPerson = costPerPerson;
                 ok = true;
             }
+            else 
+            {
+                MessageBox.Show("Invalid cost per person. Pleease try again", "Error");
+            }
             return ok;
         }
 
@@ -136,12 +139,23 @@ namespace Assignment4
                 partyManager.FeePerPerson = feePerPerson;
                 ok = true;
             }
+            else
+            {
+                MessageBox.Show("Invalid fee per person. Please try again", "Error");
+            }
             return ok;
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-
+            if (string.IsNullOrEmpty(txtFirstName.Text) || string.IsNullOrEmpty(txtLastName.Text))
+            {
+                MessageBox.Show("You need to provide a first and last name to add a guest", "Error");
+            }
+            else
+            {
+                partyManager.AddNewGuest(txtFirstName.Text, txtLastName.Text);
+            }
         }
     }
 }

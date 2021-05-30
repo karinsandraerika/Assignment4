@@ -64,13 +64,14 @@ namespace Assignment4
                 }
             }
             return nrGuests;
-        }
+        } 
 
         // Add new guest
         public bool AddNewGuest(string firstName, string lastName)
         {
             bool ok = false;
             int vacantPos = FindVacantPos();
+            // if a vacant position is found, add guest name to that position.
             if (vacantPos != -1)
             {
                 guestList[vacantPos] = FullName(firstName, lastName);
@@ -94,14 +95,17 @@ namespace Assignment4
             return vacantPos;
         }
 
+        // Combine last name and first name and make the last name uppercase.
         private string FullName(string firstName, string lastName)
         {
             return lastName.ToUpper() + "," + firstName; 
         }
 
+        // Delete guest name at a certain index
         public bool DeleteAt(int index)
         {
             bool ok = false;
+            // If index is ok, empty element and then call method to move remaining elements to the left in the array.
             if (CheckIndex(index))
             {
                 guestList[index] = string.Empty;
@@ -111,6 +115,7 @@ namespace Assignment4
             return ok;
         }
 
+        // Move elements to left in guest list array. 
         private void MoveElementsToLeft(int index)
         {
             for (int i = index +1; i < guestList.Length; i++)
@@ -128,7 +133,7 @@ namespace Assignment4
 
         public string[] GetGuestList()
         {
-            int size = NumOfGuest();
+            int size = NrOfGuests();
             if (size <= 0)
             {
                 return null;
@@ -142,11 +147,6 @@ namespace Assignment4
                 }
             }
             return guests;
-        }
-
-        private int NumOfGuests()
-        {
-
         }
 
         public double CalcTotalCost()
