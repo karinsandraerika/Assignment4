@@ -149,10 +149,24 @@ namespace Assignment4
             return guests;
         }
 
+        // Calculate and return total cost for the party.
         public double CalcTotalCost()
         {
-            double total = 0;
+            double total = NrOfGuests() * costPerPerson;
             return total;
+        }
+
+        // Calculate and return total fees.
+        public double CalcTotalFees()
+        {
+            double total = NrOfGuests() * feePerPerson;
+            return total;
+        }
+
+        public double CalcSurplusDeficit()
+        {
+            double surplusDeficit = CalcTotalCost() - CalcTotalFees();
+            return surplusDeficit;
         }
     }
 }
