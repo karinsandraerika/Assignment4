@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+// Written by Sandra Persson, spring 2021.
 namespace Assignment4
 {
     static class Program

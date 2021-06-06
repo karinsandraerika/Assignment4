@@ -61,6 +61,7 @@ namespace Assignment4
             {
                 for (int i = 0; i < guestList.Length; i++)
                 {
+                    // Add a nr before each guest starting at 1 (i+1) and format each name.
                     string guest = $"{i + 1,4} {guestList[i],-20}";
                     lstAllGuests.Items.Add(guest);
                 }
@@ -70,12 +71,16 @@ namespace Assignment4
                 return;
             }
 
-            double totalCost = partyManager.CalcTotalCost();
-            lblTotalCostOut.Text = totalCost.ToString("0.00");
+            txtFirstName.Text = string.Empty;
+            txtLastName.Text = string.Empty;
             int nrGuest = partyManager.NrOfGuests();
             lblNrGuestsOut.Text = nrGuest.ToString();
-            lblSurplusDeficitOut.Text = null;
-            lblTotalFeesOut.Text = null;    
+            double totalCost = partyManager.CalcTotalCost();
+            lblTotalCostOut.Text = totalCost.ToString("0.00");
+            double totalFees = partyManager.CalcTotalFees();
+            lblTotalFeesOut.Text = totalFees.ToString("0.00");
+            double surplusDeficit = partyManager.CalcSurplusDeficit();
+            lblSurplusDeficitOut.Text = surplusDeficit.ToString("0.00");   
         }
 
         // When Create button is clicked: create a new party, update GUI and enable Add guest feature.
@@ -92,6 +97,7 @@ namespace Assignment4
                     // Enable Add guest box and update GUI if cost and fee were read succesfully.
                     grpAddGuests.Enabled = true;
                     UpdateGUI();
+                    ClearOutputControls();
                 }
             }  
         }
@@ -114,6 +120,7 @@ namespace Assignment4
             return ok;
         }
 
+        // Read and validate cost per person given by user.
         private bool ReadCostPerPerson()
         {
             double costPerPerson = 0;
@@ -130,6 +137,7 @@ namespace Assignment4
             return ok;
         }
 
+        // Read and validate fee per person given by user.
         private bool ReadFeePerPerson()
         {
             double feePerPerson = 0;
@@ -146,6 +154,7 @@ namespace Assignment4
             return ok;
         }
 
+        // When add button is clicked, read and validate first and last name of guest. If valid, add to guest list.
         private void btnAdd_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(txtFirstName.Text) || string.IsNullOrEmpty(txtLastName.Text))
@@ -154,7 +163,25 @@ namespace Assignment4
             }
             else
             {
-                partyManager.AddNewGuest(txtFirstName.Text, txtLastName.Text);
+                if (partyManager.AddNewGuest(txtFirstName.Text, txtLastName.Text))
+                {
+                    UpdateGUI();
+                }
+                else
+                {
+                    MessageBox.Show("Maximum number of guests already added");
+                }
+            }
+        }
+
+        // When delete button ic clicked, call method to remove guest at the selected index.
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            int index = -1;
+            index = lstAllGuests.SelectedIndex;
+            if (partyManager.DeleteAt(index))
+            {
+                UpdateGUI();
             }
         }
     }

@@ -48,7 +48,6 @@ namespace Assignment4
             this.lblTotalFees = new System.Windows.Forms.Label();
             this.lblSurplusDeficit = new System.Windows.Forms.Label();
             this.lstAllGuests = new System.Windows.Forms.ListBox();
-            this.btnChange = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
             this.lblNrGuestsOut = new System.Windows.Forms.Label();
             this.lblTotalCostOut = new System.Windows.Forms.Label();
@@ -242,29 +241,20 @@ namespace Assignment4
             this.lstAllGuests.Size = new System.Drawing.Size(250, 284);
             this.lstAllGuests.TabIndex = 6;
             // 
-            // btnChange
-            // 
-            this.btnChange.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.btnChange.Location = new System.Drawing.Point(470, 351);
-            this.btnChange.Name = "btnChange";
-            this.btnChange.Size = new System.Drawing.Size(75, 41);
-            this.btnChange.TabIndex = 7;
-            this.btnChange.Text = "Change";
-            this.btnChange.UseVisualStyleBackColor = true;
-            // 
             // btnDelete
             // 
             this.btnDelete.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.btnDelete.Location = new System.Drawing.Point(556, 351);
+            this.btnDelete.Location = new System.Drawing.Point(455, 351);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(75, 41);
             this.btnDelete.TabIndex = 8;
             this.btnDelete.Text = "Delete";
             this.btnDelete.UseVisualStyleBackColor = true;
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
             // lblNrGuestsOut
             // 
-            this.lblNrGuestsOut.AutoSize = true;
+            this.lblNrGuestsOut.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.lblNrGuestsOut.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.lblNrGuestsOut.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.lblNrGuestsOut.Location = new System.Drawing.Point(198, 351);
@@ -275,7 +265,7 @@ namespace Assignment4
             // 
             // lblTotalCostOut
             // 
-            this.lblTotalCostOut.AutoSize = true;
+            this.lblTotalCostOut.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.lblTotalCostOut.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.lblTotalCostOut.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.lblTotalCostOut.Location = new System.Drawing.Point(198, 372);
@@ -286,7 +276,7 @@ namespace Assignment4
             // 
             // lblTotalFeesOut
             // 
-            this.lblTotalFeesOut.AutoSize = true;
+            this.lblTotalFeesOut.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.lblTotalFeesOut.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.lblTotalFeesOut.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.lblTotalFeesOut.Location = new System.Drawing.Point(198, 392);
@@ -297,7 +287,7 @@ namespace Assignment4
             // 
             // lblSurplusDeficitOut
             // 
-            this.lblSurplusDeficitOut.AutoSize = true;
+            this.lblSurplusDeficitOut.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.lblSurplusDeficitOut.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.lblSurplusDeficitOut.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.lblSurplusDeficitOut.Location = new System.Drawing.Point(198, 412);
@@ -327,7 +317,6 @@ namespace Assignment4
             this.Controls.Add(this.lblTotalCostOut);
             this.Controls.Add(this.lblNrGuestsOut);
             this.Controls.Add(this.btnDelete);
-            this.Controls.Add(this.btnChange);
             this.Controls.Add(this.lstAllGuests);
             this.Controls.Add(this.lblSurplusDeficit);
             this.Controls.Add(this.lblTotalFees);
@@ -365,7 +354,6 @@ namespace Assignment4
         private System.Windows.Forms.Label lblTotalFees;
         private System.Windows.Forms.Label lblSurplusDeficit;
         private System.Windows.Forms.ListBox lstAllGuests;
-        private System.Windows.Forms.Button btnChange;
         private System.Windows.Forms.Button btnDelete;
         private System.Windows.Forms.TextBox txtLastName;
         private System.Windows.Forms.TextBox txtFirstName;

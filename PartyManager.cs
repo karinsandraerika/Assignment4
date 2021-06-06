@@ -28,7 +28,7 @@ namespace Assignment4
             }
             set
             { 
-                if (value >= 0.0)
+                if (value >= 0.0) // check that the value is not smaller than 0.
                 {
                     costPerPerson = value;
                 }    
@@ -44,7 +44,7 @@ namespace Assignment4
             }
             set
             { 
-                if (value >= 0.0)
+                if (value >= 0.0) // check that the value is not smaller than 0.
                 {
                     feePerPerson = value;
                 }     
@@ -70,8 +70,8 @@ namespace Assignment4
         public bool AddNewGuest(string firstName, string lastName)
         {
             bool ok = false;
-            int vacantPos = FindVacantPos();
             // if a vacant position is found, add guest name to that position.
+            int vacantPos = FindVacantPos();
             if (vacantPos != -1)
             {
                 guestList[vacantPos] = FullName(firstName, lastName);
@@ -84,12 +84,13 @@ namespace Assignment4
         private int FindVacantPos()
         {
             int vacantPos = -1; // if no vacant position is found, the method should return -1.
+            // Loop over guest list, if an empty position is found, get the index and return it.
             for (int i = 0; i < guestList.Length; i++)
             {
                 if (string.IsNullOrEmpty(guestList[i]))
                 {
                     vacantPos = i;
-                    break;
+                    break; // break out of the loop as soon as a vacant position is found.
                 }
             }
             return vacantPos;
@@ -118,32 +119,42 @@ namespace Assignment4
         // Move elements to left in guest list array. 
         private void MoveElementsToLeft(int index)
         {
-            for (int i = index +1; i < guestList.Length; i++)
+            // Loop over guest list from index position and move each element one position back.
+            for (int i = index +1; i < guestList.Length; i++) 
             {
                 guestList[i - 1] = guestList[i];
                 guestList[i] = string.Empty;
             }
         }
 
+        // Check that index is larger than 0.
         private bool CheckIndex(int index)
         {
             bool ok = false;
+            if (index >= 0)
+            {
+                ok = true;
+            }
             return ok;
         }
 
+        // Get a list of values for all elements that are not empty.
         public string[] GetGuestList()
         {
+            // Return null if there are no guests added.
             int size = NrOfGuests();
             if (size <= 0)
             {
                 return null;
             }
+            // Otherwise create an array with all added guests and return the list.
             string[] guests = new string[size];
             for (int i = 0, j = 0; i < guestList.Length; i++)
             {
+                // If the element in guestList is not empty, add value to guests array.
                 if (!string.IsNullOrEmpty(guestList[i]))
                 {
-                    guestList[j++] = guestList[i];
+                    guests[j++] = guestList[i]; // add value at guests at j and then increment j.
                 }
             }
             return guests;
@@ -163,9 +174,10 @@ namespace Assignment4
             return total;
         }
 
+        // Calculate surplus/deficit
         public double CalcSurplusDeficit()
         {
-            double surplusDeficit = CalcTotalCost() - CalcTotalFees();
+            double surplusDeficit =  CalcTotalFees() - CalcTotalCost();
             return surplusDeficit;
         }
     }
